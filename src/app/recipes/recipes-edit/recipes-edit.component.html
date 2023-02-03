@@ -1,0 +1,67 @@
+<form [formGroup]= "editForm" (ngSubmit)= "OnSubmit()">
+
+    <div class="mb-4 btn-group" role="group">
+      <button type="submit" class="btn btn-success" >Save</button>
+      <button type="button" class="btn btn-danger" routerLink="/recipes">Cancel</button>
+    </div>
+    
+    <div class="mb-3">
+      <label for="name" class="form-label"><b>Name</b></label>
+      <input type="text" class="form-control" id="name" formControlName="name">
+      <div class="error" *ngIf= "(editForm.get('name')?.touched && editForm.get('name')?.invalid)
+      || (submitButtonClicked && editForm.get('name')?.invalid)">
+        <div *ngIf= "editForm.get('name')?.errors?.['required']">
+          <div>Name is required</div>
+        </div>
+        <div *ngIf= "editForm.get('name')?.errors?.['minlength']">
+          <div>Min of 3 characters</div>
+        </div>
+        <div *ngIf= "editForm.get('name')?.errors?.['maxlength']">
+          <div>Max of 15 characters</div>
+        </div>
+      </div>
+      
+    </div>
+  
+    <div class="mb-3">
+      <label for="imagePath" class="form-label"><b>Image URL</b></label>
+      <input type="url" class="form-control" id="imagePath" formControlName="imagePath">
+    </div>
+  
+    <div class="mb-3">
+      <label for="desc" class="form-label"><b>Description</b></label>
+      <textarea class="form-control" id="desc" rows="3" formControlName="desc"></textarea>
+      <div class="error" *ngIf= "(editForm.get('desc')?.touched && editForm.get('desc')?.invalid)
+      || (submitButtonClicked && editForm.get('desc')?.invalid)">
+        <div *ngIf= "editForm.get('desc')?.errors?.['required']">
+          <div>Description is required</div>
+        </div>
+      </div>
+    
+    </div>
+
+    <div class="mb-1">
+      <label for="ingrediants" class="form-label"><b>Ingrediants</b></label>
+    </div>
+
+    <div formArrayName="ingrediants">
+      <div *ngFor= "let ing of controls.controls; let i = index" [formGroupName]="i">
+        <div class="mb-3 row">
+          <div class="col-8">
+            <input type="text" class="form-control" id="ingrediant" formControlName="name">
+          </div>
+          <div class="col-2">
+            <input type="text" class="form-control" id="ingrediant" formControlName="amount">
+          </div>
+          <div class="col-2">
+            <button type="button" class="btn btn-danger" (click)= "onDeleteIng(i)">X</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+            <button type="button" (click)= "addIng()" class="btn btn-success ">Add Ing</button>
+    </div>
+  
+  </form>

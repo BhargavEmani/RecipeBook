@@ -1,0 +1,32 @@
+<div class="mb-4 btn-group">
+    <button type="button" class="btn btn-success dropdown-toggle" 
+    data-bs-toggle="dropdown" aria-expanded="false">Manage Recipe</button>
+    
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" (click)= "toShoppingList()"> To Shopping list</a></li>
+        <li><a class="dropdown-item" (click)= "onEdit()">Edit Recipe</a></li>
+        <li><a class="dropdown-item" (click)= "deleteRecipe()" routerLink="/recipes">Delete Recipe</a></li>
+    </ul>
+</div>
+
+<div class="mb-4">
+    <img src="{{recipe?.imagePath}}" class="img-thumbnail" alt="{{recipe?.name}}" style="max-height: 350px;">
+</div>
+
+<div class="mb-1">
+    <h3><b>{{recipe?.name}}</b></h3>
+</div>
+
+<div class="mb-2">
+    <p>{{recipe?.desc}}</p>
+</div>
+
+<div class="mb-2"><b>Ingrediants :</b></div>
+<div class="row">
+    <div class="col-5" class="overflow-auto" style="max-height: 150px;">
+        <ul class="mb-2 list-group" *ngFor="let ing of recipe?.ingrediants">
+            <li class="list-group-item"> {{ing?.name}} - {{ing?.amount}}</li>
+        </ul>
+    </div>
+
+</div>

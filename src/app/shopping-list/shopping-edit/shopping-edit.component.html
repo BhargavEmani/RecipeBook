@@ -1,0 +1,21 @@
+<form [formGroup]= "ingrediant" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col-4"><b>Name</b></div>
+        <div class="col-2"><b>Amount</b></div>
+    </div>
+
+    <div class="mb-3 row">
+        <div class="col-4">
+            <input type="text" class="form-control" formControlName="name">
+        </div>
+        <div class="col-2">
+            <input type="text" class="form-control" formControlName="amount">
+        </div>
+    </div>
+
+    <div class="btn-group" role="group" >
+        <button type="submit" [disabled]= "!ingrediant.valid" class="btn btn-primary">{{editMode? 'Update' : 'Add'}}</button>
+        <button type="button" (click)= "deleteIng()" class="btn btn-danger">Delete</button>
+        <button type="reset" (click)= "onReset()" class="btn btn-success">Clear</button>
+      </div>
+</form>

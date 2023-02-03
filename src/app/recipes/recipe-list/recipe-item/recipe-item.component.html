@@ -1,0 +1,12 @@
+<ol class="mb-3 list-group">
+    <a 
+    [routerLink]= "index"
+    routerLinkActive="active"
+    class="list-group-item d-flex justify-content-between align-items-start">
+      <div class="ms-2 me-auto">
+        <div class="fw-bold">{{recipe?.name}}</div>
+        {{recipe?.desc}}
+      </div>
+      <span class=" bg-primary "><img style="height: 100px;" src="{{recipe?.imagePath}}" alt="{{recipe?.name}}"></span>
+    </a>
+  </ol>
