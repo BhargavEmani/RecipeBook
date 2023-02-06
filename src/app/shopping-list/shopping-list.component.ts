@@ -13,11 +13,24 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   constructor(private slService: ShoppingListService) { }
 
   ingrediants: Ingrediants[] | undefined;
-  private ingSub: Subscription | undefined;
+  private ingSub$: Subscription | undefined;
+  errorMessage = '';
 
   ngOnInit(): void {
     this.ingrediants = this.slService.getIngrediants();
-    this.ingSub = this.slService.newIngrediantAdded.subscribe((newIng: Ingrediants[]) => this.ingrediants = newIng);
+    this.ingSub$ = this.slService.newIngrediantAdded.subscribe({
+      next:(newIng: Ingrediants[]) =>
+      {
+        this.ingrediants = newIng;
+      },
+      error:(error) =>{
+        this.errorMessage = error;
+        console.log(error);
+      }
+    
+    }
+     
+      );
   }
 
   ingrediantSelected(i: number): any {
@@ -25,6 +38,6 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.ingSub?.unsubscribe();
+    this.ingSub$?.unsubscribe();
   }
 }

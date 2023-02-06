@@ -13,7 +13,7 @@ import { RecipesEditComponent } from './recipes/recipes-edit/recipes-edit.compon
 import { RecipesComponent } from './recipes/recipes.component';
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
-import { ErrorIntercept } from './shared/error.interceptor';
+import{ErrorHandlingInterceptor} from './shared/error-handling.interceptor'
 
 @NgModule({
   declarations: [
@@ -37,7 +37,7 @@ import { ErrorIntercept } from './shared/error.interceptor';
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
-    useClass: ErrorIntercept,
+    useClass: ErrorHandlingInterceptor,
     multi: true
   }],
   bootstrap: [AppComponent]

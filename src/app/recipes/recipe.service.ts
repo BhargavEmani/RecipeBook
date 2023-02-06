@@ -23,16 +23,28 @@ export class RecipeService {
     saveRecipesSub: Subscription | undefined;
 
     setRecipe() {
-        this.getRecipesSub = this.dataStorageService.getRecipes().subscribe((recipe: Recipe[]) => {
-            this.recipe = recipe;
-            this.recipeChanged.next(this.recipe.slice());
-        })
+        this.getRecipesSub = this.dataStorageService.getRecipes().subscribe({
+            next: (recipe: Recipe[]) => {
+                this.recipe = recipe;
+                this.recipeChanged.next(this.recipe.slice());
+            },
+            error: (error) => {
+                console.log(error)
+            }
+        }
+        )
     }
 
     saveRecipesToDB() {
-        this.saveRecipesSub = this.dataStorageService.storeRecipes(this.recipe).subscribe(data => {
-            console.log(data)
-        })
+        this.saveRecipesSub = this.dataStorageService.storeRecipes(this.recipe).subscribe(
+            {
+                next: (data) => {
+                    console.log(data)
+                },
+                error: (error) => {
+                    console.log(error)
+                }
+            })
 
     }
 
@@ -69,6 +81,4 @@ export class RecipeService {
         this.saveRecipesSub?.unsubscribe();
 
     }
-
-
 }
